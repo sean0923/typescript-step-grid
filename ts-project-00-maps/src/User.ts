@@ -14,4 +14,10 @@ export class User {
       lat: Number(faker.address.latitude()),
     };
   }
+
+  getContent(): string {
+    return `
+      user name: ${this.name}
+    `;
+  }
 }

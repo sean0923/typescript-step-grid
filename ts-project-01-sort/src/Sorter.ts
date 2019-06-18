@@ -1,9 +1,3 @@
-// interface Sortable {
-//   swap(leftIdx: number, rightIdx: number): void;
-//   isLeftBigger(leftIdx: number, rightIdx: number): boolean;
-//   length: number;
-// }
-
 export abstract class Sorter {
   abstract isLeftBigger(leftIdx: number, rightIdx: number): boolean;
   abstract swap(leftIdx: number, rightIdx: number): void;

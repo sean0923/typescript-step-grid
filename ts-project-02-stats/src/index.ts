@@ -6,6 +6,8 @@ let manWin = 0;
 const csvFileReader = new CsvFileReader('./football.csv');
 csvFileReader.read();
 
+// const date = csvFileReader.data[0][0];
+
 for (let parsedMatch of csvFileReader.data) {
   if (parsedMatch[1] === 'Man United' && parsedMatch[5] === MatchResult.HomeWin) {
     manWin++;

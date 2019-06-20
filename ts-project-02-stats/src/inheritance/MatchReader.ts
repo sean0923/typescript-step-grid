@@ -1,6 +1,6 @@
-import { MatchResult } from './MatchResult';
+import { MatchResult } from '../MatchResult';
 import { CsvFileReader } from './CsvFileReader';
-import { convertStrToDate } from './utils';
+import { convertStrToDate } from '../utils';
 
 type MatchData = [Date, string, string, number, number, MatchResult, string];
 

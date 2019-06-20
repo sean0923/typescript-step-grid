@@ -1,8 +1,5 @@
 import fs from 'fs';
 
-import { MatchResult } from './MatchResult';
-import { convertStrToDate } from './utils';
-
 export abstract class CsvFileReader<T> {
   fileName: string;
   data: T[] = [];

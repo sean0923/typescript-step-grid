@@ -1,4 +1,9 @@
+import axios from 'axios';
+
+const HOST = 'http://localhost:3000';
+
 interface UserProps {
+	id?: number;
 	name?: string;
 	age?: number;
 }
@@ -33,5 +38,19 @@ export class User {
 		callbacks.forEach((callback) => {
 			callback();
 		});
+	}
+
+	fetch() {
+		axios.get(`${HOST}/users/${this.get('id')}`);
+	}
+
+	save() {
+		const { id } = this.data;
+		if (id) {
+			// if data is at backend
+			axios.put(`${HOST}/users/${this.data.id}`);
+		} else {
+			axios.post(`${HOST}/users`, this.data);
+		}
 	}
 }

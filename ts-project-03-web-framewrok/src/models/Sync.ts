@@ -1,27 +1,30 @@
-import axios from 'axios';
+import axios, { AxiosPromise } from 'axios';
 
-const HOST = 'http://localhost:3000';
+import { UserProps } from './User';
+
+// const HOST = 'http://localhost:3000';
 
 export class Sync {
-	fetch() {
-		axios
-			.get(`${HOST}/users/${this.get('id')}`)
-			.then(({ data }) => {
-				this.data = data;
-				console.log('data: ', data);
-			})
-			.catch((err) => {
-				console.error('err: ', err);
-			});
+	constructor(public rootURL: string) {}
+
+	fetch(id: number): AxiosPromise {
+		return axios.get(`${this.rootURL}/${id}`);
+		// .then(({ data }) => {
+		// 	this.data = data;
+		// 	console.log('data: ', data);
+		// })
+		// .catch((err) => {
+		// 	console.error('err: ', err);
+		// });
 	}
 
-	save() {
-		const { id } = this.data;
+	save(data: UserProps): AxiosPromise {
+		const { id } = data;
 		if (id) {
-			// if data is at backend
-			axios.put(`${HOST}/users/${this.data.id}`);
-		} else {
-			axios.post(`${HOST}/users`, this.data);
+			// if data is at backend -> update
+			return axios.put(`${this.rootURL}/${id}`);
 		}
+
+		return axios.post(this.rootURL, data);
 	}
 }

@@ -1,5 +1,12 @@
 {
-  "devDependencies": {
-    "typescript": "^3.5.2"
-  }
+	"scripts": {
+		"start:run-json-server": "json-server -w db.json",
+		"start:parcel": "parcel ./src/index.ts",
+		"start": "concurrently npm:start:*"
+	},
+	"devDependencies": {
+		"concurrently": "^4.1.1",
+		"json-server": "^0.15.0",
+		"typescript": "^3.5.2"
+	}
 }

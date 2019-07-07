@@ -11,9 +11,9 @@ export interface UserProps {
 }
 
 export class User {
-  public eventing = new Eventing();
-  public sync = new Sync(HOST);
-  public attributes;
+  public eventing: Eventing = new Eventing();
+  public sync: Sync<UserProps> = new Sync<UserProps>(HOST);
+  public attributes: Attributes<UserProps>;
 
   constructor(attrs: UserProps) {
     this.attributes = new Attributes<UserProps>(attrs);

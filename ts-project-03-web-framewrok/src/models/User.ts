@@ -18,4 +18,21 @@ export class User {
   constructor(attrs: UserProps) {
     this.attributes = new Attributes<UserProps>(attrs);
   }
+
+  get on() {
+    return this.eventing.on;
+  }
+
+  get trriger() {
+    return this.eventing.trigger;
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
+
+  set(userProp: UserProps): void {
+    this.attributes.set(userProp);
+    this.eventing.trigger('change');
+  }
 }

@@ -24,7 +24,7 @@ export class User {
     return this.eventing.on;
   }
 
-  get trriger() {
+  get trigger() {
     return this.eventing.trigger;
   }
 
@@ -46,6 +46,15 @@ export class User {
 
     this.sync.fetch(id).then((resp: AxiosResponse) => {
       this.set(resp.data);
+    });
+  }
+
+  save(): void {
+    const userProp = this.attributes.getAll();
+
+    this.sync.save(userProp).then((resp: AxiosResponse) => {
+			console.log('?');
+      this.trigger('save');
     });
   }
 }

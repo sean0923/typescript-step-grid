@@ -15,7 +15,7 @@ export class Sync<T extends HasId> {
     const { id } = data;
     if (id) {
       // if data is at backend -> update
-      return axios.put(`${this.rootURL}/${id}`);
+      return axios.put(`${this.rootURL}/${id}`, data);
     }
 
     return axios.post(this.rootURL, data);

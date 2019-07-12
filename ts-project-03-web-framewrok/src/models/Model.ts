@@ -54,6 +54,7 @@ export class Model<T extends HasId> {
     }
 
     this.sync.fetch(id).then((resp: AxiosResponse) => {
+      console.log('resp.data: ', resp.data);
       this.set(resp.data);
     });
   }

@@ -2,12 +2,21 @@
 import { Model } from '../models/Model';
 
 export abstract class View<T extends Model<K>, K> {
+	components: { [key: string]: Element } = {};
+
 	constructor(public parent: Element, public model: T) {
 		this.reRenderWhenChangeTrigger();
 	}
 
-	abstract eventsMap(): { [key: string]: (e?: Event) => void };
 	abstract template(): string;
+
+	eventsMap = (): { [key: string]: () => void } => {
+		return {};
+	};
+
+	componentsMap = (): { [key: string]: string } => {
+		return {};
+	};
 
 	reRenderWhenChangeTrigger = () => {
 		this.model.on('change', () => {
@@ -27,11 +36,24 @@ export abstract class View<T extends Model<K>, K> {
 		});
 	}
 
+	mapComponents(fragment: DocumentFragment): void {
+		Object.keys(this.componentsMap()).forEach((key) => {
+			const className = this.componentsMap()[key];
+			const node = fragment.querySelector(className);
+
+			if (node) {
+				this.components[key] = node;
+			}
+		});
+	}
+
 	render(): void {
 		this.parent.innerHTML = '';
 
 		const templateElement = document.createElement('template');
 		templateElement.innerHTML = this.template();
+
+		this.mapComponents(templateElement.content);
 		this.bindEvents(templateElement.content);
 		this.parent.append(templateElement.content);
 	}

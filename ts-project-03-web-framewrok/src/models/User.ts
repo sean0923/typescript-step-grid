@@ -22,4 +22,10 @@ export class User extends Model<UserProps> {
       User.buildUser(userProps)
     );
   }
+
+  setRandomAge = () => {
+    const randomAge = Math.round(Math.random() * 100);
+    this.set({ age: randomAge });
+    this.trigger('change');
+  };
 }

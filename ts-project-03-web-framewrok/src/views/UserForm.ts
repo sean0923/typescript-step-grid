@@ -1,22 +1,25 @@
 import { User } from '../models/User';
 
 export class UserForm {
-  constructor(public parent: Element, public model: User) {}
+  constructor(public parent: Element, public model: User) {
+    this.reRenderWhenChangeTrigger();
+  }
 
-  eventsMap(): { [key: string]: () => void } {
+  reRenderWhenChangeTrigger = () => {
+    this.model.on('change', () => {
+      this.render();
+    });
+  };
+
+  eventsMap(): { [key: string]: (e?: Event) => void } {
     return {
-      'click:button': this.onButtonClick,
-      'mouseenter:h1': this.onMouseEnter,
+      'click:.set-random-age': this.setRandomAge,
     };
   }
 
-  onButtonClick(): void {
-    console.log('button clicked');
-  }
-
-  onMouseEnter(): void {
-    console.log('MouseEnter');
-  }
+  setRandomAge: () => void = () => {
+    this.model.setRandomAge();
+  };
 
   template(): string {
     return `
@@ -25,7 +28,7 @@ export class UserForm {
         <div>name: ${this.model.get('name')}</div>
         <div>age: ${this.model.get('age')}</div>
         <input />
-        <button>Submit</button>
+        <button class="set-random-age">set random age</button>
       </div>
     `;
   }
@@ -43,6 +46,8 @@ export class UserForm {
   }
 
   render(): void {
+    this.parent.innerHTML = '';
+
     const templateElement = document.createElement('template');
     templateElement.innerHTML = this.template();
     this.bindEvents(templateElement.content);

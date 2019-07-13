@@ -1,28 +1,29 @@
+import { User, UserProps } from '../models/User';
 import { View } from './View';
 
-export class UserForm extends View {
-  eventsMap(): { [key: string]: (e?: Event) => void } {
-    return {
-      'click:.set-name': this.setName,
-      'click:.set-random-age': this.setRandomAge,
-    };
-  }
+export class UserForm extends View<User, UserProps> {
+	eventsMap(): { [key: string]: (e?: Event) => void } {
+		return {
+			'click:.set-name': this.setName,
+			'click:.set-random-age': this.setRandomAge,
+		};
+	}
 
-  setName: () => void = () => {
-    const inputNode = this.parent.querySelector('input');
+	setName: () => void = () => {
+		const inputNode = this.parent.querySelector('input');
 
-    if (inputNode) {
-      const inputValue = inputNode.value;
-      this.model.set({ name: inputValue });
-    }
-  };
+		if (inputNode) {
+			const inputValue = inputNode.value;
+			this.model.set({ name: inputValue });
+		}
+	};
 
-  setRandomAge: () => void = () => {
-    this.model.setRandomAge();
-  };
+	setRandomAge: () => void = () => {
+		this.model.setRandomAge();
+	};
 
-  template(): string {
-    return `
+	template(): string {
+		return `
       <div>
         <h1>User Form</h1>
         <div>name: ${this.model.get('name')}</div>
@@ -32,5 +33,5 @@ export class UserForm extends View {
         <button class="set-random-age">set random age</button>
       </div>
     `;
-  }
+	}
 }

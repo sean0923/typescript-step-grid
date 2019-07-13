@@ -20,8 +20,11 @@ export class UserForm {
 
   setName: () => void = () => {
     const inputNode = this.parent.querySelector('input');
-    const inputValue = inputNode.value;
-    this.model.set({ name: inputValue });
+
+    if (inputNode) {
+      const inputValue = inputNode.value;
+      this.model.set({ name: inputValue });
+    }
   };
 
   setRandomAge: () => void = () => {

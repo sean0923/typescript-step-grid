@@ -1,15 +1,18 @@
 import { MatchData } from './MatchData';
 
 export interface Analzer {
-  run(matches: MatchData[]): string;
+	run(matches: MatchData[]): string;
 }
 
 export interface OutputTarget {
-  print(report: string): void;
+	print(report: string): void;
 }
 
 export class Summary {
-  constructor(public analyzer: Analzer, public outputTarget: OutputTarget) {}
+	constructor(public analyzer: Analzer, public outputTarget: OutputTarget) {}
 
-  buildAndPrintReport(match: MatchData): void {}
+	buildAndPrintReport(matches: MatchData[]): void {
+		const output = this.analyzer.run(matches);
+		this.outputTarget.print(output);
+	}
 }

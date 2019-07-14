@@ -5,17 +5,23 @@ class Boat {
 		return `formatted ${this.color}`;
 	}
 
-	@testDecorator
+	@logError
 	pilot(): void {
+		throw new Error();
 		console.log('swish');
 	}
 }
 
-function testDecorator(target: any, key: string): void {
-	console.log('target: ', target);
-	console.log('key: ', key);
+function logError(target: any, key: string, desc: PropertyDescriptor): void {
+	const method = desc.value;
+
+	desc.value = () => {
+		try {
+			method();
+		} catch (err) {
+			console.log('boat is too slow');
+		}
+	};
 }
 
-const boat = new Boat();
-
-boat.pilot();
+new Boat().pilot();

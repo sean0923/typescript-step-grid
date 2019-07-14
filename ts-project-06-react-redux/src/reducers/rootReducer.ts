@@ -1,5 +1,12 @@
 import { combineReducers } from 'redux';
 
-export const rootReducers = combineReducers({
-	counter: () => 1,
+import { Todo } from '../actions/rootActions';
+import { todosReducer } from './todosReducer';
+
+export interface RootReducer {
+	todos: Todo[];
+}
+
+export const rootReducers = combineReducers<RootReducer>({
+	todos: todosReducer,
 });

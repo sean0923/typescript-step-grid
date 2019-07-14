@@ -1,14 +1,10 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+
+import { router } from './routes/loginRoutes';
 
 const app = express();
 
-app.get('/', (req: Request, res: Response) => {
-	res.send(`
-    <div>
-      <h1>Yeah ~~</h1>
-    </div>
-  `);
-});
+app.use(router);
 
 const PORT = 3001;
 app.listen(PORT, () => {

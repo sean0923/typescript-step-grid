@@ -2,15 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-import { Todo, FetchTodoAction, fetchTodos } from '../actions/rootActions';
+import { Todo, fetchTodos, deleteTodo } from '../actions/rootActions';
 import { RootReducer } from '../reducers/rootReducer';
 
 interface AppPros {
 	todos: Todo[];
-	fetchTodos(): any;
+	fetchTodos: Function;
+	// fetchTodos: typeof fetchTodos;
+	// deleteTodo: Function;
+	deleteTodo: typeof deleteTodo;
 }
 
-const App = ({ todos, fetchTodos }: AppPros) => {
+const App = ({ todos, fetchTodos, deleteTodo }: AppPros) => {
 	const onButtonClick = () => {
 		fetchTodos();
 	};
@@ -24,6 +27,9 @@ const App = ({ todos, fetchTodos }: AppPros) => {
 						<div>{todo.id}</div>
 						<div>{todo.title}</div>
 						<div>{todo.completed && 'completed'}</div>
+						<button style={{ color: 'red' }} onClick={() => deleteTodo(todo.id)}>
+							delete
+						</button>
 					</FlexWrapper>
 				);
 			})}
@@ -35,7 +41,7 @@ const mapStateToProps = ({ todos }: RootReducer): { todos: Todo[] } => {
 	return { todos };
 };
 
-export default connect(mapStateToProps, { fetchTodos })(App);
+export default connect(mapStateToProps, { fetchTodos, deleteTodo })(App);
 // export default App;
 
 const FlexWrapper = styled.div`
